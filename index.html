@@ -197,6 +197,8 @@
     .pub-entry { padding: 1.2rem 0; border-bottom: 1px solid var(--border); }
     .pub-entry:last-child { border-bottom: none; }
     .pub-title-text { font-size: 1.05rem; line-height: 1.55; }
+    .pub-title-text a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--border); transition: border-color .15s, color .15s; }
+    .pub-title-text a:hover { color: var(--teal); border-color: var(--teal); }
     .pub-authors { font-size: .88rem; color: var(--muted); margin-top: .35rem; line-height: 1.5; }
     .pub-authors strong { color: var(--ink); font-weight: 600; }
     .pub-venue { font-size: .88rem; font-style: italic; color: var(--teal); margin-top: .25rem; }
@@ -222,17 +224,17 @@
     /* ── HOBBIES ── */
     .hobby-essay { width: 100%; }
     .hobby-essay > p {
-      font-size: 1.15rem; line-height: 1.85; margin-bottom: 1.2rem; max-width: 560px;
+      font-size: .97rem; line-height: 1.75; margin-bottom: 1rem; max-width: 560px;
     }
     .chapter-row {
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 2.5rem; margin-top: 2.5rem; align-items: start;
     }
     .chapter-text p {
-      font-size: 1.1rem; line-height: 1.85; margin-bottom: 1.1rem; color: var(--ink);
+      font-size: .97rem; line-height: 1.75; margin-bottom: .95rem; color: var(--ink);
     }
     .chapter-text p.pullquote {
-      font-style: italic; font-size: 1.15rem; color: var(--muted);
+      font-style: italic; font-size: 1rem; color: var(--muted);
       padding-left: 1.2rem; border-left: 3px solid var(--border); margin: 1.5rem 0;
     }
     .chapter-media { display: flex; flex-direction: column; gap: .8rem; }
@@ -286,7 +288,7 @@
   <aside class="sidebar">
     <div class="site-name" onclick="show('home')">YUESHENG<br>ZHANG<br><span style="font-size:.9rem;letter-spacing:.04em;">张岳升</span></div>
     <div class="sidebar-role">
-      <span class="en">PhD Researcher<br>Synthetic Biology<br>DTU Biosustain, Denmark</span>
+      <span class="en">PhD Researcher<br>Synthetic Biology<br>DTU BRIGHT, Denmark</span>
       <span class="zh">博士研究生<br>合成生物学<br>丹麦技术大学，丹麦</span>
     </div>
     <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">中文</button>
@@ -295,13 +297,13 @@
         <span class="en">Home</span><span class="zh">首页</span>
       </a>
       <a href="#" onclick="show('research')" id="nav-research">
-        <span class="en">Research</span><span class="zh">科研</span>
+        <span class="en">Projects</span><span class="zh">项目经历</span>
       </a>
       <a href="#" onclick="show('publications')" id="nav-publications">
         <span class="en">Publications</span><span class="zh">发表成果</span>
       </a>
       <a href="#" onclick="show('outreach')" id="nav-outreach">
-        <span class="en">Outreach</span><span class="zh">科研外工作</span>
+        <span class="en">Outreach</span><span class="zh">发表之外</span>
       </a>
       <a href="#" onclick="show('hobbies')" id="nav-hobbies">
         <span class="en">Hobbies</span><span class="zh">爱好</span>
@@ -322,14 +324,17 @@
     <div class="page active" id="page-home">
       <img src="Home photo.jpg" alt="Yuesheng Zhang" class="home-photo" />
       <div class="home-intro">
-        <p class="en">I study how microorganisms can be engineered to produce things the world needs — food proteins, natural pigments, and medicines — more sustainably and efficiently.</p>
-        <p class="zh">我的研究方向是如何通过工程化改造微生物，以更可持续、更高效的方式生产世界所需的物质——包括食品蛋白质、天然色素与药物。</p>
+        <p class="en">As a scientist, I study how microorganisms can be engineered to produce things the world needs — food proteins, natural pigments, and medicines — more sustainably and efficiently. </p>
+        <p class="zh">作为科研工作者，我研究通过工程化改造微生物，以可持续和高效的方式生产世界所需的物质--包括食品蛋白质、天然色素与药物。</p>
+        
+        <p class="en">Beyond the science, I am interested in how innovations become products: identifying real market needs, validating solutions, and bringing technologies to the people. I believe the value of synthetic biology is ultimately determined not by what can be built in the lab, but by the impact it creates in the real world. </p>
+        <p class="zh">除了科研，我对创新如何转化为产品充满兴趣：如何发现真实的市场需求、验证解决方案的价值，并将技术带给受众。我坚信合成生物学的价值最终不取决于实验室的创造，而取决于创新在现实世界中产生的切实影响。</p>
 
-        <p class="en">My research sits at the intersection of <span class="em">metabolic engineering, synthetic biology,</span> and <span class="em">computational biology.</span> I work with yeast as a production platform, using tools ranging from genome editing and enzyme mining to machine learning and genome-scale modeling.</p>
-        <p class="zh">我的研究处于代谢工程、合成生物学与计算生物学的交叉前沿。我以酵母作为生产平台，综合运用基因编辑、酶挖掘、机器学习与基因组尺度模型等手段开展研究。</p>
+        <p class="en">My research sits at the intersection of <span class="em">metabolic engineering, synthetic biology,</span> and <span class="em">computational biology.</span> I work with yeast and bacteria as a production platform, using tools ranging from genome editing and enzyme mining to machine learning and genome-scale modeling.</p>
+        <p class="zh">我的研究处于代谢工程、合成生物学与计算生物学的交叉前沿。我以酵母与细菌作为生产平台，综合运用基因编辑、酶挖掘、机器学习与基因组尺度模型等手段开展研究。</p>
 
-        <p class="en">I am currently a PhD researcher at <a href="#">DTU Biosustain</a> — the Novo Nordisk Foundation Biotechnology Research Institute for the Green Transition — in Denmark, supervised by Prof. Irina Borodina. My work involves both academic publication and direct paths toward commercial application, through collaborations with spin-out companies <span class="em">Typo Foods</span> and <span class="em">Biocolor.</span></p>
-        <p class="zh">目前，我是丹麦技术大学生物可持续发展中心（DTU Biosustain，即诺和诺德基金会绿色转型生物技术研究院）的博士研究生，导师为Irina Borodina教授。我的研究不仅聚焦于学术发表，也积极推动成果向商业应用转化，通过与初创公司<span class="em">Typo Foods</span>和<span class="em">Biocolor</span>的合作实现产业落地。</p>
+        <p class="en">I am currently a PhD researcher at the Novo Nordisk Foundation Biotechnology Research Institute for the Green Transition (BRIGHT, previously DTU Biosustain), supervised by Prof. Irina Borodina. My current works covers both fundamental and application research in yeast metabolic engineering, and involves both academic publication and direct paths toward commercial application, through collaborations with spin-out companies <span class="em">Typo Foods</span> and <span class="em">Biocolor.</span></p>
+        <p class="zh">目前，我是丹麦技术大学诺和诺德基金会绿色转型生物技术研究院（前DTU Biosustain）的博士研究生，导师为Irina Borodina教授。我当前的研究覆盖酵母代谢工程的基础科研与应用研究，不仅聚焦于学术发表，也积极推动成果向商业应用转化，通过课题组与初创公司<span class="em">Typo Foods</span>和<span class="em">Biocolor</span>的合作实现技术商业化。</p>
       </div>
 
       <div class="news-strip">
@@ -365,7 +370,7 @@
         <div class="news-item">
           <span class="news-date">2024</span>
           <span class="news-text">
-            <span class="en">Started PhD at DTU Biosustain, Kgs. Lyngby, Denmark</span>
+            <span class="en">Started PhD at DTU Biosustain / BRIGHT, Kgs. Lyngby, Denmark</span>
             <span class="zh">开始博士研究，丹麦技术大学生物可持续发展中心</span>
           </span>
         </div>
@@ -513,7 +518,7 @@
       <div class="pub-year-group">
         <div class="pub-year">2026</div>
         <div class="pub-entry">
-          <div class="pub-title-text">Leveraging large language models for metabolic engineering design</div>
+          <div class="pub-title-text"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0167779926001356" target="_blank">Leveraging large language models for metabolic engineering design</a></div>
           <div class="pub-authors">Xiongwen Li, Zhetao Guo, Yi Li, Zhu Liang, Ziyi Liu, Ke Wu, Jiahao Luo, <strong>Yuesheng Zhang</strong>, Lizheng Liu, Manda Sun, Yuanyuan Huang, Yu Chen, Tao Yu, Jens Nielsen, Hongting Tang, Feiran Li</div>
           <div class="pub-venue">Trends in Biotechnology</div>
           <div class="pub-meta">JCR Q1 · Impact Factor 14.9</div>
@@ -523,52 +528,52 @@
       <div class="pub-year-group">
         <div class="pub-year">2025</div>
         <div class="pub-entry">
-          <div class="pub-title-text">Engineering and characterization of small-molecule transporters for cell factories</div>
+          <div class="pub-title-text"><a href="https://www.cell.com/trends/biotechnology/fulltext/S0167-7799(25)00493-7" target="_blank">Engineering and characterization of small-molecule transporters for cell factories</a></div>
           <div class="pub-authors"><strong>Yuesheng Zhang</strong>, Douglas B. Kell, Irina Borodina</div>
           <div class="pub-venue">Trends in Biotechnology</div>
-          <div class="pub-meta">JCR Q1 · Impact Factor 14.9</div>
+          <div class="pub-meta">JCR Q1 · Impact Factor 14.9 · doi: 10.1016/j.tibtech.2025.04.937</div>
         </div>
       </div>
 
       <div class="pub-year-group">
         <div class="pub-year">2024</div>
         <div class="pub-entry">
-          <div class="pub-title-text">A comprehensive review on microbial hyaluronan-degrading enzymes: from virulence factors to biotechnological tools</div>
+          <div class="pub-title-text"><a href="https://link.springer.com/article/10.1186/s40643-024-00832-x" target="_blank">A comprehensive review on microbial hyaluronan-degrading enzymes: from virulence factors to biotechnological tools</a></div>
           <div class="pub-authors">Jia-Yu Jiang, Dai Xue, Jin-Song Gong, Qin-Xin Zheng, <strong>Yue-Sheng Zhang</strong>, Chang Su, Zheng-Hong Xu, Jin-Song Shi</div>
           <div class="pub-venue">Bioresources and Bioprocessing</div>
-          <div class="pub-meta">JCR Q1 · Impact Factor 5.1</div>
+          <div class="pub-meta">JCR Q1 · Impact Factor 5.1 · doi: 10.1186/s40643-024-00832-x</div>
         </div>
         <div class="pub-entry">
-          <div class="pub-title-text">Engineering protein translocation and unfolded protein response enhanced human PH-20 secretion in Pichia pastoris</div>
+          <div class="pub-title-text"><a href="https://link.springer.com/article/10.1007/s00253-023-12878-6" target="_blank">Engineering protein translocation and unfolded protein response enhanced human PH-20 secretion in Pichia pastoris</a></div>
           <div class="pub-authors"><strong>Yue-Sheng Zhang</strong>, Jin-Song Gong, Jia-Yu Jiang, Zheng-Hong Xu, Jin-Song Shi</div>
           <div class="pub-venue">Applied Microbiology and Biotechnology · 108: 54</div>
-          <div class="pub-meta">JCR Q1 · Impact Factor 4.3</div>
+          <div class="pub-meta">JCR Q1 · Impact Factor 4.3 · doi: 10.1007/s00253-023-12878-6</div>
         </div>
       </div>
 
       <div class="pub-year-group">
         <div class="pub-year">2023</div>
         <div class="pub-entry">
-          <div class="pub-title-text">High-level expression and characterization of a highly active hyaluronate lyase HylC with significant potential in hyaluronan oligosaccharide preparation</div>
+          <div class="pub-title-text"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0168165623000524" target="_blank">High-level expression and characterization of a highly active hyaluronate lyase HylC with significant potential in hyaluronan oligosaccharide preparation</a></div>
           <div class="pub-authors"><strong>Yue-Sheng Zhang</strong>, Jia-Yu Jiang, Jin-Song Gong, Chang Su, Heng Li, Chuan-Li Kang, Lei Liu, Zheng-Hong Xu, Jin-Song Shi</div>
           <div class="pub-venue">Journal of Biotechnology · 366: 35–45</div>
-          <div class="pub-meta">JCR Q2 · Impact Factor 3.9</div>
+          <div class="pub-meta">JCR Q2 · Impact Factor 3.9 · doi: 10.1016/j.jbiotec.2023.03.003</div>
         </div>
         <div class="pub-entry">
-          <div class="pub-title-text">Genetic variation reveals the enhanced microbial hyaluronan biosynthesis via atmospheric and room temperature plasma</div>
+          <div class="pub-title-text"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0144861723002746" target="_blank">Genetic variation reveals the enhanced microbial hyaluronan biosynthesis via atmospheric and room temperature plasma</a></div>
           <div class="pub-authors">Zhi-Yuan Yao, Jin-Song Gong, Yu-Ru Liu, Jia-Yu Jiang, <strong>Yue-Sheng Zhang</strong>, Chang Su, Heng Li, Chuan-Li Kang, Lei Liu, Zheng-Hong Xu, Jin-Song Shi</div>
           <div class="pub-venue">Carbohydrate Polymers · 312: 120809</div>
-          <div class="pub-meta">JCR Q1 · Impact Factor 12.5</div>
+          <div class="pub-meta">JCR Q1 · Impact Factor 12.5 · doi: 10.1016/j.carbpol.2023.120809</div>
         </div>
       </div>
 
       <div class="pub-year-group">
         <div class="pub-year">2022</div>
         <div class="pub-entry">
-          <div class="pub-title-text">Insights into the source, mechanism and biotechnological applications of hyaluronidases</div>
+          <div class="pub-title-text"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0734975022001148" target="_blank">Insights into the source, mechanism and biotechnological applications of hyaluronidases</a></div>
           <div class="pub-authors"><strong>Yue-Sheng Zhang</strong>, Jin-Song Gong, Zhi-Yuan Yao, Jia-Yu Jiang, Chang Su, Heng Li, Chuan-Li Kang, Lei Liu, Zheng-Hong Xu, Jin-Song Shi</div>
           <div class="pub-venue">Biotechnology Advances · 60: 108018</div>
-          <div class="pub-meta">JCR Q1 · Impact Factor 12.5</div>
+          <div class="pub-meta">JCR Q1 · Impact Factor 12.5 · doi: 10.1016/j.biotechadv.2022.108018</div>
         </div>
       </div>
 
@@ -595,7 +600,7 @@
           <div class="outreach-title">IndBio — <span class="en">WeChat Public Account</span><span class="zh">微信公众号</span></div>
           <div class="outreach-body">
             <span class="en">I run <em>IndBio</em>, a Chinese-language WeChat public account focused on the commercial and industrial applications of biotechnology in medicine, agriculture, and food. The account tracks how frontier biological research transitions into real-world products, bridging the gap between academic science and the broader public and industry community.</span>
-            <span class="zh">我运营<em>IndBio</em>，一个聚焦生物技术在医药、农业与食品领域商业应用的中文微信公众号，追踪前沿科研成果如何转化为现实产品，致力于连接学术科研与产业界。</span>
+            <span class="zh">我运营<em>IndBio</em>，一个聚焦生物技术在医药、农业与食品领域商业应用的中文微信公众号，追踪前沿科研成果如何通过商业思维转化为现实产品，致力于连接学术科研与产业界。</span>
           </div>
         </div>
 
@@ -612,8 +617,8 @@
           <div class="outreach-type"><span class="en">Mentoring</span><span class="zh">学生指导</span></div>
           <div class="outreach-title"><span class="en">Student supervision</span><span class="zh">毕业论文指导</span></div>
           <div class="outreach-body">
-            <span class="en">Supervised three undergraduate students and one master's student through their thesis projects, providing weekly guidance on experimental design, data interpretation, and scientific writing, with a focus on fostering independent thinking.</span>
-            <span class="zh">指导过三名本科生与一名硕士生完成毕业论文，提供每周实验设计、数据解读与科学写作指导，注重培养学生的独立思考能力与研究自主性。</span>
+            <span class="en">Supervised two Bachelor's thesis students: one at Jiangnan University whose thesis received the Outstanding Thesis Award, and one at DTU who achieved the highest possible grade (12/12). Currently supervising one Bachelor's and one Master's thesis project.</span>
+            <span class="zh">指导2名本科毕业论文学生（1人获优秀毕业论文奖，1人获DTU最高成绩12/12），目前指导1名本科生和1名硕士生毕业论文项目。</span>
           </div>
         </div>
 
@@ -621,8 +626,8 @@
           <div class="outreach-type"><span class="en">Industry Collaboration</span><span class="zh">产业合作</span></div>
           <div class="outreach-title"><span class="en">20-L pilot fermentation scale-up with industrial partner</span><span class="zh">与合作企业开展20升中试发酵放大</span></div>
           <div class="outreach-body">
-            <span class="en">Worked directly with an industrial partner to diagnose and resolve yield decline during fermentation scale-up, moving from academic lab to industrial pilot scale with direct impact on the partner's production efficiency.</span>
-            <span class="zh">与工业合作方合作，诊断并解决了发酵放大过程中的产量下降问题，研究从实验室规模延伸至20升工业中试规模，对合作方的生产效率产生了直接影响。</span>
+            <span class="en">Worked directly with industrial partners from Freda Co. Ltd. in my masters to diagnose and resolve yield decline during fermentation scale-up, moving from academic lab to industrial pilot scale with direct impact on the partner's production efficiency.</span>
+            <span class="zh">硕士期间参与课题组与福瑞达的合作，诊断并解决了发酵放大过程中的产量下降问题，研究从实验室规模延伸至20升工业中试规模，对合作方的生产效率产生了直接影响。</span>
           </div>
         </div>
 
@@ -631,19 +636,9 @@
           <div class="outreach-title"><span class="en">AI-assisted gene fragment design pipeline</span><span class="zh">AI辅助基因片段设计自动化流程</span></div>
           <div class="outreach-body">
             <span class="en">Developed and implemented an AI-assisted pipeline to automate gene fragment design in the laboratory workflow, significantly reducing time on routine tasks and freeing capacity for more complex experimental work.</span>
-            <span class="zh">开发并实施了AI辅助基因片段设计自动化流程，显著减少了实验室日常设计工作的时间消耗，将精力释放到更复杂的实验工作中。</span>
+            <span class="zh">编写脚本将实验室设计CRISPR基因片段流程自动化，显著减少了实验室日常设计工作的时间消耗。</span>
           </div>
         </div>
-
-        <div class="outreach-item">
-          <div class="outreach-type"><span class="en">Commercialization</span><span class="zh">成果转化</span></div>
-          <div class="outreach-title"><span class="en">Strain and technology transfer — Typo Foods & Biocolor</span><span class="zh">菌株与技术转让 — Typo Foods & Biocolor</span></div>
-          <div class="outreach-body">
-            <span class="en">Actively participating in translating laboratory results into commercially viable products through two spin-out companies, including strain selection, IP documentation, and technical roadmap collaboration with founding teams.</span>
-            <span class="zh">积极参与将实验室成果转化为商业产品的全流程，涵盖菌株筛选、知识产权整理，以及与两家初创公司创始团队的技术路线图协作。</span>
-          </div>
-        </div>
-
       </div>
     </div>
 
@@ -652,8 +647,11 @@
       <div class="section-label"><span class="en">Hobbies</span><span class="zh">爱好</span></div>
       <div class="hobby-essay">
 
+        <p class="en">Having hobbies that you take seriously along work, is kind of like living two lives at the same time.</p>
+        <p class="zh">认真投入工作之外的爱好,就像开启了一段平行人生。</p>
+
         <p class="en">Being brave enough to try new things, learning new movements and mindsets, adapting to new routines, and equally importantly, letting go of obsessions, has shaped me into a brighter, stronger, and more open-minded person. Looking back, this may be the most important lesson my hobbies have taught me.</p>
-        <p class="zh">勇于尝试新事物、学习新动作与新思维方式、适应新的生活节奏，以及同样重要的——学会放下执念，让我成为了一个更开朗、更强大、更开放的人。回头看，这或许是我的爱好教给我最重要的一课。</p>
+        <p class="zh">勇于尝试新事物、学习新动作与新思维方式、适应新的生活节奏，以及同样重要的--学会放下执念，让我成为了一个更开朗、更强大、更开放的人。回头看，这或许是我的爱好教给我最重要的一课。</p>
 
         <!-- Chapter 1 -->
         <div class="chapter-row">
@@ -667,7 +665,7 @@
             <p class="pullquote en">What fascinated me most was not competition, but exploration.</p>
             <p class="pullquote zh">而那时让我着迷的，不是比赛，而是探索。</p>
             <p class="en">At the time, the most difficult tricks involved circling the ball three or even three and a half times before regaining control. Some veterans in the Chinese freestyle community used to say that "Chinese genetics are not designed for 3-rev and 3.5-rev tricks." Whether serious or not, very few athletes in China had managed to perform them consistently.</p>
-            <p class="zh">那个时代，最难的动作需要在两次触球间用腿绕球三圈甚至三圈半。中国花式圈里有前辈曾说"中国人的体质不适合三转和三转半"。不管是玩笑还是认真的，能够稳定完成这些动作的国内选手确实寥寥无几。</p>
+            <p class="zh">那个时代，最难的动作需要在两次触球间用腿绕球三圈甚至三圈半。中国花式圈里有前辈曾说"中国人的体质不适合三圈"。不管是玩笑还是认真的，能够稳定完成这些动作的国内选手确实寥寥无几。</p>
           </div>
           <div class="chapter-media">
             <div class="two-col">
@@ -781,9 +779,13 @@
       <div class="cv-photo-wrap">
         <img src="CV photo.jpg" alt="Yuesheng Zhang" class="cv-photo" />
       </div>
-      <a class="cv-download" href="张岳升个人简历.pdf" download>
-        <span class="en">↓ Download CV (PDF)</span>
-        <span class="zh">↓ 下载简历（PDF）</span>
+      <a class="cv-download" href="Yuesheng Zhang, personal CV English.pdf" download>
+        <span class="en">↓ Download CV — English (PDF)</span>
+        <span class="zh">↓ 下载简历 — 英文版（PDF）</span>
+      </a>
+      <a class="cv-download" href="张岳升个人简历.pdf" download style="margin-left:.8rem;">
+        <span class="en">↓ Download CV — Chinese (PDF)</span>
+        <span class="zh">↓ 下载简历 — 中文版（PDF）</span>
       </a>
     </div>
 
@@ -791,8 +793,8 @@
     <div class="page" id="page-contact">
       <div class="section-label"><span class="en">Contact</span><span class="zh">联系方式</span></div>
       <p class="contact-intro">
-        <span class="en">I am always open to conversations about collaborative research, industry opportunities, or simply exchanging ideas about synthetic biology and the future of biomanufacturing.</span>
-        <span class="zh">我始终欢迎关于科研合作、产业机会的交流，或仅仅是探讨合成生物学与生物制造未来的对话。</span>
+        <span class="en">I am always open to conversations about industry opportunities, collaborative research, or exchanging ideas about synthetic biology and the future of biomanufacturing. I look forward to exchanging ideas and exploring opportunities.</span>
+        <span class="zh">我始终欢迎关于产业机会、科研合作的交流，以及对合成生物学与生物制造未来发展的讨论。期待与来自学术界和产业界的朋友老师分享观点、探索可能性。</span>
       </p>
       <div class="contact-list">
         <div class="contact-row">
@@ -812,13 +814,13 @@
         <div class="contact-row">
           <span class="contact-label"><span class="en">Address</span><span class="zh">地址</span></span>
           <span class="contact-value">
-            Kollegiebakken 15a, 6<br>
+            Kollegiebakken 15a<br>
             2800 Kgs. Lyngby, Denmark
           </span>
         </div>
         <div class="contact-row">
           <span class="contact-label">WeChat</span>
-          <span class="contact-value">IndBio (<span class="en">public account</span><span class="zh">公众号</span>)</span>
+          <span class="contact-value">18861813783 </span>
         </div>
       </div>
     </div>
