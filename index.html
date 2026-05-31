@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yuesheng Zhang · 张岳升</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;700&family=Noto+Serif+SC:wght@400;600&display=swap');
+
+    :root {
+      --teal: #0d7377;
+      --ink: #1a1a1a;
+      --muted: #6b6b6b;
+      --light: #f5f5f2;
+      --border: #e0e0da;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'EB Garamond', 'Noto Serif SC', Georgia, serif;
+      background: #fff;
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ── LANGUAGE SWITCHING ── */
+    .zh { display: none; }
+    body.lang-zh .en { display: none; }
+    body.lang-zh .zh { display: revert; }
+
+    /* ── LANG TOGGLE BUTTON ── */
+    .lang-toggle {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: .3rem .75rem;
+      cursor: pointer;
+      transition: all .15s;
+      margin-top: 1.2rem;
+      align-self: flex-start;
+    }
+    .lang-toggle:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* ── LAYOUT ── */
+    .shell {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      padding: 3rem 2rem 2rem 2.5rem;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .site-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.45rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      line-height: 1.25;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .site-name:hover { color: var(--teal); }
+
+    .sidebar-role {
+      margin-top: 1rem;
+      font-size: .85rem;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+    }
+    nav a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .82rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: .4rem 0;
+      transition: color .15s;
+    }
+    nav a:hover, nav a.active { color: var(--ink); }
+    nav a.active { font-weight: 700; color: var(--teal); }
+
+    /* ── MAIN ── */
+    main {
+      padding: 3.5rem 5rem 5rem 5rem;
+      max-width: 860px;
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── HOME ── */
+    .home-photo {
+      width: 100%; max-width: 420px;
+      display: block;
+      margin-bottom: 2.5rem;
+      border: 1px solid var(--border);
+    }
+    .home-intro p {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      margin-bottom: 1.3rem;
+    }
+    .home-intro p a { color: var(--teal); text-decoration: none; border-bottom: 1px solid var(--teal); }
+    .home-intro p span.em { font-style: italic; }
+
+    .news-strip { margin-top: 3rem; border-top: 1px solid var(--border); padding-top: 1.5rem; }
+    .news-strip h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem;
+    }
+    .news-item {
+      display: flex; gap: 1.5rem; padding: .7rem 0;
+      border-bottom: 1px solid var(--border); align-items: baseline;
+    }
+    .news-date {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .78rem; color: var(--muted); white-space: nowrap; min-width: 70px;
+    }
+    .news-text { font-size: 1rem; line-height: 1.5; }
+    .news-text a { color: var(--teal); text-decoration: none; border-bottom: 1px solid var(--teal); }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 2.5rem;
+      padding-bottom: .8rem; border-bottom: 1px solid var(--border);
+    }
+
+    /* ── RESEARCH ── */
+    .project-list { display: flex; flex-direction: column; }
+    .project-period {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .72rem; letter-spacing: .1em; color: var(--muted); margin-bottom: .4rem;
+    }
+    .project-title { font-size: 1.2rem; font-weight: 600; margin-bottom: .7rem; line-height: 1.35; }
+    .project-body { font-size: 1rem; line-height: 1.8; color: #333; }
+    .project-body p + p { margin-top: .6rem; }
+    .project-tag {
+      display: inline-block;
+      font-family: 'Space Grotesk', sans-serif; font-size: .72rem; letter-spacing: .06em;
+      background: var(--light); color: var(--muted);
+      padding: .15rem .55rem; border-radius: 3px; margin-right: .3rem; margin-top: .6rem;
+    }
+    .collab-note { margin-top: .7rem; font-style: italic; font-size: .95rem; color: var(--teal); }
+
+    /* ── PROJECT ROW ── */
+    .project-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-row:last-child { border-bottom: none; }
+    .project-row.no-img { grid-template-columns: 1fr; }
+    .project-img img {
+      width: 100%; height: auto;
+      display: block;
+      border: 1px solid var(--border);
+      object-fit: contain;
+    }
+
+    /* ── PUBLICATIONS ── */
+    .pub-year-group { margin-bottom: 2.8rem; }
+    .pub-year {
+      font-family: 'Space Grotesk', sans-serif; font-size: .72rem;
+      letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem;
+    }
+    .pub-entry { padding: 1.2rem 0; border-bottom: 1px solid var(--border); }
+    .pub-entry:last-child { border-bottom: none; }
+    .pub-title-text { font-size: 1.05rem; line-height: 1.55; }
+    .pub-authors { font-size: .88rem; color: var(--muted); margin-top: .35rem; line-height: 1.5; }
+    .pub-authors strong { color: var(--ink); font-weight: 600; }
+    .pub-venue { font-size: .88rem; font-style: italic; color: var(--teal); margin-top: .25rem; }
+    .pub-meta {
+      font-family: 'Space Grotesk', sans-serif; font-size: .72rem;
+      color: var(--muted); margin-top: .3rem; letter-spacing: .04em;
+    }
+    .patents-header {
+      font-family: 'Space Grotesk', sans-serif; font-size: .72rem;
+      letter-spacing: .15em; text-transform: uppercase; color: var(--muted);
+      margin: 3rem 0 1.2rem; padding-top: 2rem; border-top: 1px solid var(--border);
+    }
+
+    /* ── OUTREACH ── */
+    .outreach-list { display: flex; flex-direction: column; gap: 2.2rem; }
+    .outreach-type {
+      font-family: 'Space Grotesk', sans-serif; font-size: .72rem;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--teal); margin-bottom: .3rem;
+    }
+    .outreach-title { font-size: 1.1rem; font-weight: 600; margin-bottom: .4rem; }
+    .outreach-body { font-size: .98rem; line-height: 1.8; color: #333; }
+
+    /* ── HOBBIES ── */
+    .hobby-essay { width: 100%; }
+    .hobby-essay > p {
+      font-size: 1.15rem; line-height: 1.85; margin-bottom: 1.2rem; max-width: 560px;
+    }
+    .chapter-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2.5rem; margin-top: 2.5rem; align-items: start;
+    }
+    .chapter-text p {
+      font-size: 1.1rem; line-height: 1.85; margin-bottom: 1.1rem; color: var(--ink);
+    }
+    .chapter-text p.pullquote {
+      font-style: italic; font-size: 1.15rem; color: var(--muted);
+      padding-left: 1.2rem; border-left: 3px solid var(--border); margin: 1.5rem 0;
+    }
+    .chapter-media { display: flex; flex-direction: column; gap: .8rem; }
+    .chapter-media img, .chapter-media video {
+      width: 100%; height: auto; display: block;
+      border: 1px solid var(--border); object-fit: contain;
+    }
+    .chapter-media .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+    .chapter-media .two-col img { width: 100%; }
+
+    /* ── CV ── */
+    .cv-photo-wrap { margin-bottom: 2.5rem; }
+    .cv-photo { width: 100%; max-width: 480px; display: block; border: 1px solid var(--border); }
+    .cv-download {
+      display: inline-block; margin-top: .5rem;
+      font-family: 'Space Grotesk', sans-serif; font-size: .82rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--teal); border: 1px solid var(--teal);
+      padding: .6rem 1.4rem; text-decoration: none; transition: background .15s, color .15s;
+    }
+    .cv-download:hover { background: var(--teal); color: #fff; }
+
+    /* ── CONTACT ── */
+    .contact-intro { font-size: 1.15rem; line-height: 1.8; margin-bottom: 2.5rem; }
+    .contact-list { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-row {
+      display: flex; gap: 1.5rem; align-items: baseline;
+      padding-bottom: 1.2rem; border-bottom: 1px solid var(--border);
+    }
+    .contact-label {
+      font-family: 'Space Grotesk', sans-serif; font-size: .72rem;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--muted); min-width: 80px;
+    }
+    .contact-value { font-size: 1rem; }
+    .contact-value a { color: var(--teal); text-decoration: none; border-bottom: 1px solid var(--teal); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .shell { grid-template-columns: 1fr; }
+      .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem; }
+      nav { flex-direction: row; flex-wrap: wrap; gap: .4rem 1rem; margin-top: 1rem; }
+      main { padding: 2rem 1.5rem; }
+      .chapter-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="site-name" onclick="show('home')">YUESHENG<br>ZHANG<br><span style="font-size:.9rem;letter-spacing:.04em;">张岳升</span></div>
+    <div class="sidebar-role">
+      <span class="en">PhD Researcher<br>Synthetic Biology<br>DTU Biosustain, Denmark</span>
+      <span class="zh">博士研究生<br>合成生物学<br>丹麦技术大学，丹麦</span>
+    </div>
+    <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">中文</button>
+    <nav>
+      <a href="#" onclick="show('home')" id="nav-home" class="active">
+        <span class="en">Home</span><span class="zh">首页</span>
+      </a>
+      <a href="#" onclick="show('research')" id="nav-research">
+        <span class="en">Research</span><span class="zh">科研</span>
+      </a>
+      <a href="#" onclick="show('publications')" id="nav-publications">
+        <span class="en">Publications</span><span class="zh">发表成果</span>
+      </a>
+      <a href="#" onclick="show('outreach')" id="nav-outreach">
+        <span class="en">Outreach</span><span class="zh">科研外工作</span>
+      </a>
+      <a href="#" onclick="show('hobbies')" id="nav-hobbies">
+        <span class="en">Hobbies</span><span class="zh">爱好</span>
+      </a>
+      <a href="#" onclick="show('cv')" id="nav-cv">
+        <span class="en">CV</span><span class="zh">简历</span>
+      </a>
+      <a href="#" onclick="show('contact')" id="nav-contact">
+        <span class="en">Contact</span><span class="zh">联系方式</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- HOME -->
+    <div class="page active" id="page-home">
+      <img src="Home photo.jpg" alt="Yuesheng Zhang" class="home-photo" />
+      <div class="home-intro">
+        <p class="en">I study how microorganisms can be engineered to produce things the world needs — food proteins, natural pigments, and medicines — more sustainably and efficiently.</p>
+        <p class="zh">我的研究方向是如何通过工程化改造微生物，以更可持续、更高效的方式生产世界所需的物质——包括食品蛋白质、天然色素与药物。</p>
+
+        <p class="en">My research sits at the intersection of <span class="em">metabolic engineering, synthetic biology,</span> and <span class="em">computational biology.</span> I work with yeast as a production platform, using tools ranging from genome editing and enzyme mining to machine learning and genome-scale modeling.</p>
+        <p class="zh">我的研究处于代谢工程、合成生物学与计算生物学的交叉前沿。我以酵母作为生产平台，综合运用基因编辑、酶挖掘、机器学习与基因组尺度模型等手段开展研究。</p>
+
+        <p class="en">I am currently a PhD researcher at <a href="#">DTU Biosustain</a> — the Novo Nordisk Foundation Biotechnology Research Institute for the Green Transition — in Denmark, supervised by Prof. Irina Borodina. My work involves both academic publication and direct paths toward commercial application, through collaborations with spin-out companies <span class="em">Typo Foods</span> and <span class="em">Biocolor.</span></p>
+        <p class="zh">目前，我是丹麦技术大学生物可持续发展中心（DTU Biosustain，即诺和诺德基金会绿色转型生物技术研究院）的博士研究生，导师为Irina Borodina教授。我的研究不仅聚焦于学术发表，也积极推动成果向商业应用转化，通过与初创公司<span class="em">Typo Foods</span>和<span class="em">Biocolor</span>的合作实现产业落地。</p>
+      </div>
+
+      <div class="news-strip">
+        <h2><span class="en">Recent</span><span class="zh">近期动态</span></h2>
+        <div class="news-item">
+          <span class="news-date">2026</span>
+          <span class="news-text">
+            <span class="en">New paper: <a href="#">Leveraging large language models for metabolic engineering design</a> — <em>Trends in Biotechnology</em> (IF 14.9)</span>
+            <span class="zh">新论文：<a href="#">利用大语言模型辅助代谢工程设计</a> — <em>Trends in Biotechnology</em>（影响因子 14.9）</span>
+          </span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2025</span>
+          <span class="news-text">
+            <span class="en">Poster at <a href="#">Metabolic Engineering 16</a>, Copenhagen — <em>Unveiling transporter substrate range by untargeted metabolomics</em></span>
+            <span class="zh">海报展示：代谢工程大会16，哥本哈根 — <em>基于非靶向代谢组学揭示转运蛋白底物范围</em></span>
+          </span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2025</span>
+          <span class="news-text">
+            <span class="en">Paper: <a href="#">Engineering and characterization of small-molecule transporters for cell factories</a> — <em>Trends in Biotechnology</em></span>
+            <span class="zh">论文发表：<a href="#">细胞工厂小分子转运蛋白的改造与表征</a> — <em>Trends in Biotechnology</em></span>
+          </span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2024</span>
+          <span class="news-text">
+            <span class="en">Awarded the <strong>CFB Pathfinder Research Grant</strong>, Denmark</span>
+            <span class="zh">获得<strong>CFB Pathfinder科研基金</strong>，丹麦</span>
+          </span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2024</span>
+          <span class="news-text">
+            <span class="en">Started PhD at DTU Biosustain, Kgs. Lyngby, Denmark</span>
+            <span class="zh">开始博士研究，丹麦技术大学生物可持续发展中心</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESEARCH -->
+    <div class="page" id="page-research">
+      <div class="section-label"><span class="en">Research</span><span class="zh">科研项目</span></div>
+      <div class="project-list">
+
+        <!-- Project 1 -->
+        <div class="project-row">
+          <div class="project-text">
+            <div class="project-period">2025 — present</div>
+            <div class="project-title">
+              <span class="en">Sustainable single-cell protein from alternative carbon sources</span>
+              <span class="zh">利用可替代碳源可持续生产食品用单细胞蛋白</span>
+            </div>
+            <div class="project-body">
+              <p class="en">Engineering yeast strains capable of converting CO₂-derived and agricultural waste carbon sources into food-grade fungal protein — a sustainable alternative to conventional animal protein.</p>
+              <p class="zh">工程化改造酵母，使其能够将二氧化碳转化及农业废弃物来源的替代碳源转化为适用于食品的真菌蛋白，为传统动物蛋白提供可持续替代方案。</p>
+              <p class="en">Building a strain development platform in collaboration with UC San Diego. Commercialized through spin-out company <em>Typo Foods.</em></p>
+              <p class="zh">与加州大学圣地亚戈分校合作建立菌株开发平台技术。成果拟通过初创公司<em>Typo Foods</em>实现商业化。</p>
+            </div>
+            <div class="collab-note">→ <span class="en">Commercialization via Typo Foods · Collaboration with UC San Diego</span><span class="zh">通过Typo Foods商业化 · 与加州大学圣地亚戈分校合作</span></div>
+            <span class="project-tag">Yeast engineering</span>
+            <span class="project-tag">Alternative carbon</span>
+            <span class="project-tag">Food biotechnology</span>
+          </div>
+          <div class="project-img">
+            <img src="photos/Projects_typofoods.jpg" alt="Typo Foods - single-cell protein" />
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-row">
+          <div class="project-text">
+            <div class="project-period">2024 — present</div>
+            <div class="project-title">
+              <span class="en">Metabolic engineering of yeast for plant-derived natural pigments</span>
+              <span class="zh">代谢改造酵母生产植物天然色素</span>
+            </div>
+            <div class="project-body">
+              <p class="en">Engineering <em>S. cerevisiae</em> and <em>Y. lipolytica</em> to produce plant-derived natural food pigments through fermentation, addressing metabolic crosstalk via enzyme mining and pathway rewiring.</p>
+              <p class="zh">工程化改造酿酒酵母与解脂耶氏酵母，通过发酵生产植物来源的天然食品色素，并通过酶挖掘与代谢通路重构解决代谢副产物串扰问题。</p>
+              <p class="en">Commercialized through spin-out company <em>Biocolor.</em></p>
+              <p class="zh">成果拟通过初创公司<em>Biocolor</em>实现商业化。</p>
+            </div>
+            <div class="collab-note">→ <span class="en">Commercialization via Biocolor</span><span class="zh">通过Biocolor商业化</span></div>
+            <span class="project-tag">S. cerevisiae</span><span class="project-tag">Y. lipolytica</span><span class="project-tag">Natural pigments</span>
+          </div>
+          <div class="project-img">
+            <img src="photos/Projects_Biocolor.jpg" alt="Biocolor - natural pigments" />
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-row">
+          <div class="project-text">
+            <div class="project-period">2024 — present</div>
+            <div class="project-title">
+              <span class="en">Characterization and engineering of membrane transporters</span>
+              <span class="zh">膜转运蛋白的表征与改造</span>
+            </div>
+            <div class="project-body">
+              <p class="en">Established a <em>Xenopus</em> oocyte-based platform for characterizing transporter substrate ranges using untargeted metabolomics. Combining adaptive evolution and reverse engineering to expand yeast transport capabilities toward novel substrates.</p>
+              <p class="zh">建立基于非洲爪蟾卵母细胞与非靶向代谢组学的转运蛋白底物广谱性表征平台。结合适应性进化与反向工程，拓展酵母对新型底物的转运能力。</p>
+              <p class="en">A review was published in <em>Trends in Biotechnology</em>; three manuscripts in submission.</p>
+              <p class="zh">相关综述已发表于<em>Trends in Biotechnology</em>，另有三篇论文在投。</p>
+            </div>
+            <span class="project-tag">Membrane transporters</span><span class="project-tag">Xenopus oocytes</span><span class="project-tag">Metabolomics</span>
+          </div>
+          <div class="project-img">
+            <img src="photos/Projects_Transporter.png" alt="Membrane transporter characterization" />
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project-row">
+          <div class="project-text">
+            <div class="project-period">2023 — 2025</div>
+            <div class="project-title">
+              <span class="en">Data and deep learning-driven rational cell factory design</span>
+              <span class="zh">数据与深度学习驱动的理性细胞工厂设计</span>
+            </div>
+            <div class="project-body">
+              <p class="en">Built genome-scale protein-metabolic network models for <em>Pichia pastoris</em> using semi-automated computational pipelines, accurately predicting optimal growth conditions for recombinant protein production.</p>
+              <p class="zh">基于半自动化计算流程构建毕赤酵母的蛋白质代谢网络模型，能够准确预测重组蛋白生产的最优生长条件并指导菌株工程改造。</p>
+              <p class="en">Also contributed to an LLM-assisted metabolic engineering design study published in <em>Trends in Biotechnology</em> 2026.</p>
+              <p class="zh">同时贡献于2026年发表于<em>Trends in Biotechnology</em>的大语言模型辅助代谢工程设计研究。</p>
+            </div>
+            <span class="project-tag">Genome-scale modeling</span><span class="project-tag">Deep learning</span><span class="project-tag">LLM</span>
+          </div>
+          <div class="project-img">
+            <img src="photos/Projects_Computational.png" alt="Computational cell factory design" />
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="project-row">
+          <div class="project-text">
+            <div class="project-period">2020 — 2023</div>
+            <div class="project-title">
+              <span class="en">Metabolic engineering for enhanced protein secretion in yeast</span>
+              <span class="zh">代谢工程改造提升酵母蛋白分泌表达</span>
+            </div>
+            <div class="project-body">
+              <p class="en">Systematically re-engineered protein translocation pathways and the unfolded protein response in <em>P. pastoris</em>, achieving ~2-fold improvement in human hyaluronidase secretion. Awarded Jiangsu Province Outstanding Master's Thesis.</p>
+              <p class="zh">通过系统改造毕赤酵母中的蛋白转位通路与非折叠蛋白反应，使人透明质酸酶的分泌水平提升约两倍。论文获评江苏省优秀硕士毕业论文。</p>
+            </div>
+            <span class="project-tag">Protein secretion</span><span class="project-tag">UPR engineering</span><span class="project-tag">P. pastoris</span>
+          </div>
+          <div class="project-img">
+            <img src="photos/Projects_Humanhyaluronidase.png" alt="Human hyaluronidase secretion" />
+          </div>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="project-row">
+          <div class="project-text">
+            <div class="project-period">2020 — 2023</div>
+            <div class="project-title">
+              <span class="en">Industrial polysaccharide lyase production and fermentation scale-up</span>
+              <span class="zh">工业用多糖裂解酶的生产与发酵放大</span>
+            </div>
+            <div class="project-body">
+              <p class="en">Participated in 20-L pilot-scale fermentation of hyaluronidase and identified the root causes of yield decline during scale-up, restoring production efficiency for an industrial partner.</p>
+              <p class="zh">参与透明质酸酶的20升中试发酵放大生产，识别并解决了合作企业在发酵放大过程中的产量下降问题，对合作方产业化进程产生直接推动作用。</p>
+            </div>
+            <span class="project-tag">Fermentation scale-up</span><span class="project-tag">Industry collaboration</span>
+          </div>
+          <div class="project-img">
+            <img src="photos/Projects_Industrial hyaluronidase.jpg" alt="Industrial hyaluronidase fermentation" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PUBLICATIONS -->
+    <div class="page" id="page-publications">
+      <div class="section-label"><span class="en">Publications</span><span class="zh">发表成果</span></div>
+
+      <div class="pub-year-group">
+        <div class="pub-year">2026</div>
+        <div class="pub-entry">
+          <div class="pub-title-text">Leveraging large language models for metabolic engineering design</div>
+          <div class="pub-authors">Xiongwen Li, Zhetao Guo, Yi Li, Zhu Liang, Ziyi Liu, Ke Wu, Jiahao Luo, <strong>Yuesheng Zhang</strong>, Lizheng Liu, Manda Sun, Yuanyuan Huang, Yu Chen, Tao Yu, Jens Nielsen, Hongting Tang, Feiran Li</div>
+          <div class="pub-venue">Trends in Biotechnology</div>
+          <div class="pub-meta">JCR Q1 · Impact Factor 14.9</div>
+        </div>
+      </div>
+
+      <div class="pub-year-group">
+        <div class="pub-year">2025</div>
+        <div class="pub-entry">
+          <div class="pub-title-text">Engineering and characterization of small-molecule transporters for cell factories</div>
+          <div class="pub-authors"><strong>Yuesheng Zhang</strong>, Douglas B. Kell, Irina Borodina</div>
+          <div class="pub-venue">Trends in Biotechnology</div>
+          <div class="pub-meta">JCR Q1 · Impact Factor 14.9</div>
+        </div>
+      </div>
+
+      <div class="pub-year-group">
+        <div class="pub-year">2024</div>
+        <div class="pub-entry">
+          <div class="pub-title-text">A comprehensive review on microbial hyaluronan-degrading enzymes: from virulence factors to biotechnological tools</div>
+          <div class="pub-authors">Jia-Yu Jiang, Dai Xue, Jin-Song Gong, Qin-Xin Zheng, <strong>Yue-Sheng Zhang</strong>, Chang Su, Zheng-Hong Xu, Jin-Song Shi</div>
+          <div class="pub-venue">Bioresources and Bioprocessing</div>
+          <div class="pub-meta">JCR Q1 · Impact Factor 5.1</div>
+        </div>
+        <div class="pub-entry">
+          <div class="pub-title-text">Engineering protein translocation and unfolded protein response enhanced human PH-20 secretion in Pichia pastoris</div>
+          <div class="pub-authors"><strong>Yue-Sheng Zhang</strong>, Jin-Song Gong, Jia-Yu Jiang, Zheng-Hong Xu, Jin-Song Shi</div>
+          <div class="pub-venue">Applied Microbiology and Biotechnology · 108: 54</div>
+          <div class="pub-meta">JCR Q1 · Impact Factor 4.3</div>
+        </div>
+      </div>
+
+      <div class="pub-year-group">
+        <div class="pub-year">2023</div>
+        <div class="pub-entry">
+          <div class="pub-title-text">High-level expression and characterization of a highly active hyaluronate lyase HylC with significant potential in hyaluronan oligosaccharide preparation</div>
+          <div class="pub-authors"><strong>Yue-Sheng Zhang</strong>, Jia-Yu Jiang, Jin-Song Gong, Chang Su, Heng Li, Chuan-Li Kang, Lei Liu, Zheng-Hong Xu, Jin-Song Shi</div>
+          <div class="pub-venue">Journal of Biotechnology · 366: 35–45</div>
+          <div class="pub-meta">JCR Q2 · Impact Factor 3.9</div>
+        </div>
+        <div class="pub-entry">
+          <div class="pub-title-text">Genetic variation reveals the enhanced microbial hyaluronan biosynthesis via atmospheric and room temperature plasma</div>
+          <div class="pub-authors">Zhi-Yuan Yao, Jin-Song Gong, Yu-Ru Liu, Jia-Yu Jiang, <strong>Yue-Sheng Zhang</strong>, Chang Su, Heng Li, Chuan-Li Kang, Lei Liu, Zheng-Hong Xu, Jin-Song Shi</div>
+          <div class="pub-venue">Carbohydrate Polymers · 312: 120809</div>
+          <div class="pub-meta">JCR Q1 · Impact Factor 12.5</div>
+        </div>
+      </div>
+
+      <div class="pub-year-group">
+        <div class="pub-year">2022</div>
+        <div class="pub-entry">
+          <div class="pub-title-text">Insights into the source, mechanism and biotechnological applications of hyaluronidases</div>
+          <div class="pub-authors"><strong>Yue-Sheng Zhang</strong>, Jin-Song Gong, Zhi-Yuan Yao, Jia-Yu Jiang, Chang Su, Heng Li, Chuan-Li Kang, Lei Liu, Zheng-Hong Xu, Jin-Song Shi</div>
+          <div class="pub-venue">Biotechnology Advances · 60: 108018</div>
+          <div class="pub-meta">JCR Q1 · Impact Factor 12.5</div>
+        </div>
+      </div>
+
+      <div class="patents-header"><span class="en">Patents</span><span class="zh">专利</span></div>
+      <div class="pub-entry">
+        <div class="pub-title-text"><span class="en">A constitutively expressed human hyaluronidase Pichia pastoris strain and its application</span><span class="zh">一种组成型表达人透明质酸酶的毕赤酵母及其应用</span></div>
+        <div class="pub-authors">Shi J., <strong>Zhang Y.</strong>, Gong J., Xu Z., Su C., Li H., Jiang J.</div>
+        <div class="pub-meta"><span class="en">Application No.</span><span class="zh">申请号</span> 202311030579.1</div>
+      </div>
+      <div class="pub-entry">
+        <div class="pub-title-text"><span class="en">A hyaluronate lyase, recombinant strain and application</span><span class="zh">一种透明质酸裂解酶及其重组菌与应用</span></div>
+        <div class="pub-authors">Gong J., <strong>Zhang Y.</strong>, Shi J., Xu Z., Li H., Su C., Jiang J., Lian S., Kang C., Liu L., Zheng D.</div>
+        <div class="pub-meta"><span class="en">Authorized ·</span><span class="zh">授权号：</span> ZL 2023102176534</div>
+      </div>
+    </div>
+
+    <!-- OUTREACH -->
+    <div class="page" id="page-outreach">
+      <div class="section-label"><span class="en">Outreach & Non-publication Work</span><span class="zh">科研外工作</span></div>
+      <div class="outreach-list">
+
+        <div class="outreach-item">
+          <div class="outreach-type"><span class="en">Science Communication</span><span class="zh">科学传播</span></div>
+          <div class="outreach-title">IndBio — <span class="en">WeChat Public Account</span><span class="zh">微信公众号</span></div>
+          <div class="outreach-body">
+            <span class="en">I run <em>IndBio</em>, a Chinese-language WeChat public account focused on the commercial and industrial applications of biotechnology in medicine, agriculture, and food. The account tracks how frontier biological research transitions into real-world products, bridging the gap between academic science and the broader public and industry community.</span>
+            <span class="zh">我运营<em>IndBio</em>，一个聚焦生物技术在医药、农业与食品领域商业应用的中文微信公众号，追踪前沿科研成果如何转化为现实产品，致力于连接学术科研与产业界。</span>
+          </div>
+        </div>
+
+        <div class="outreach-item">
+          <div class="outreach-type"><span class="en">Conference</span><span class="zh">学术会议</span></div>
+          <div class="outreach-title"><span class="en">Poster — Metabolic Engineering 16, Copenhagen (2025)</span><span class="zh">海报展示 — 代谢工程大会16，哥本哈根（2025）</span></div>
+          <div class="outreach-body">
+            <span class="en"><em>Unveiling transporter substrate range by untargeted metabolomics.</em> Presented at the world's leading conference in metabolic engineering, held in Copenhagen, Denmark.</span>
+            <span class="zh"><em>基于非靶向代谢组学揭示转运蛋白底物范围。</em>在丹麦哥本哈根举办的代谢工程领域顶级国际会议上进行海报展示。</span>
+          </div>
+        </div>
+
+        <div class="outreach-item">
+          <div class="outreach-type"><span class="en">Mentoring</span><span class="zh">学生指导</span></div>
+          <div class="outreach-title"><span class="en">Student supervision</span><span class="zh">毕业论文指导</span></div>
+          <div class="outreach-body">
+            <span class="en">Supervised three undergraduate students and one master's student through their thesis projects, providing weekly guidance on experimental design, data interpretation, and scientific writing, with a focus on fostering independent thinking.</span>
+            <span class="zh">指导过三名本科生与一名硕士生完成毕业论文，提供每周实验设计、数据解读与科学写作指导，注重培养学生的独立思考能力与研究自主性。</span>
+          </div>
+        </div>
+
+        <div class="outreach-item">
+          <div class="outreach-type"><span class="en">Industry Collaboration</span><span class="zh">产业合作</span></div>
+          <div class="outreach-title"><span class="en">20-L pilot fermentation scale-up with industrial partner</span><span class="zh">与合作企业开展20升中试发酵放大</span></div>
+          <div class="outreach-body">
+            <span class="en">Worked directly with an industrial partner to diagnose and resolve yield decline during fermentation scale-up, moving from academic lab to industrial pilot scale with direct impact on the partner's production efficiency.</span>
+            <span class="zh">与工业合作方合作，诊断并解决了发酵放大过程中的产量下降问题，研究从实验室规模延伸至20升工业中试规模，对合作方的生产效率产生了直接影响。</span>
+          </div>
+        </div>
+
+        <div class="outreach-item">
+          <div class="outreach-type"><span class="en">Automation</span><span class="zh">流程自动化</span></div>
+          <div class="outreach-title"><span class="en">AI-assisted gene fragment design pipeline</span><span class="zh">AI辅助基因片段设计自动化流程</span></div>
+          <div class="outreach-body">
+            <span class="en">Developed and implemented an AI-assisted pipeline to automate gene fragment design in the laboratory workflow, significantly reducing time on routine tasks and freeing capacity for more complex experimental work.</span>
+            <span class="zh">开发并实施了AI辅助基因片段设计自动化流程，显著减少了实验室日常设计工作的时间消耗，将精力释放到更复杂的实验工作中。</span>
+          </div>
+        </div>
+
+        <div class="outreach-item">
+          <div class="outreach-type"><span class="en">Commercialization</span><span class="zh">成果转化</span></div>
+          <div class="outreach-title"><span class="en">Strain and technology transfer — Typo Foods & Biocolor</span><span class="zh">菌株与技术转让 — Typo Foods & Biocolor</span></div>
+          <div class="outreach-body">
+            <span class="en">Actively participating in translating laboratory results into commercially viable products through two spin-out companies, including strain selection, IP documentation, and technical roadmap collaboration with founding teams.</span>
+            <span class="zh">积极参与将实验室成果转化为商业产品的全流程，涵盖菌株筛选、知识产权整理，以及与两家初创公司创始团队的技术路线图协作。</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- HOBBIES -->
+    <div class="page" id="page-hobbies">
+      <div class="section-label"><span class="en">Hobbies</span><span class="zh">爱好</span></div>
+      <div class="hobby-essay">
+
+        <p class="en">Being brave enough to try new things, learning new movements and mindsets, adapting to new routines, and equally importantly, letting go of obsessions, has shaped me into a brighter, stronger, and more open-minded person. Looking back, this may be the most important lesson my hobbies have taught me.</p>
+        <p class="zh">勇于尝试新事物、学习新动作与新思维方式、适应新的生活节奏，以及同样重要的——学会放下执念，让我成为了一个更开朗、更强大、更开放的人。回头看，这或许是我的爱好教给我最重要的一课。</p>
+
+        <!-- Chapter 1 -->
+        <div class="chapter-row">
+          <div class="chapter-text">
+            <p class="en">It all started with football.</p>
+            <p class="zh">一切始于足球。</p>
+            <p class="en">I enjoyed playing football throughout high school. In my graduation year, I discovered freestyle football and immediately thought, "This looks cool." At seventeen, I started practicing.</p>
+            <p class="zh">高中时，我热爱踢足球。高三那年，我接触到了花式足球，当时脑海中只有一个念头："这太酷了。"十七岁，我开始练习。</p>
+            <p class="en">Two months later, I landed my first trick, the Touzani Around the World. The following year, I became the divisional national champion in the Chinese National Freestyle Football Championships, and defended my title the year after.</p>
+            <p class="zh">两个月后，我完成了人生第一个动作——touzani环绕世界。第二年，我在中国花式足球全国锦标赛获得了级别冠军，之后的一年卫冕。</p>
+            <p class="pullquote en">What fascinated me most was not competition, but exploration.</p>
+            <p class="pullquote zh">而那时让我着迷的，不是比赛，而是探索。</p>
+            <p class="en">At the time, the most difficult tricks involved circling the ball three or even three and a half times before regaining control. Some veterans in the Chinese freestyle community used to say that "Chinese genetics are not designed for 3-rev and 3.5-rev tricks." Whether serious or not, very few athletes in China had managed to perform them consistently.</p>
+            <p class="zh">那个时代，最难的动作需要在两次触球间用腿绕球三圈甚至三圈半。中国花式圈里有前辈曾说"中国人的体质不适合三转和三转半"。不管是玩笑还是认真的，能够稳定完成这些动作的国内选手确实寥寥无几。</p>
+          </div>
+          <div class="chapter-media">
+            <div class="two-col">
+              <img src="photos/FS champion17.jpg" alt="Provincial freestyle football champion" />
+              <img src="photos/FS champion18.jpg" alt="National Freestyle Football Championships" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Chapter 2 -->
+        <div class="chapter-row">
+          <div class="chapter-text">
+            <p class="en">I was stubborn enough to try.</p>
+            <p class="zh">我偏要试试。</p>
+            <p class="en">Training became a process of experimentation. I filmed attempts, analyzed movements, adjusted timing, and repeated the process thousands of times. In the end of my second year of freestyle football, I landed my first 3-rev trick. Over the following years, I continued pushing the limit and eventually mastered ten 3-rev variants and two 3.5-rev tricks, achievements that remain among the highest reached by a Chinese freestyler. Along the way, I also completed hundreds of combinations that had never been performed in China before.</p>
+            <p class="zh">训练成了一个不断实验的过程。我录下每次尝试，分析动作，调整时机，如此循环数以千计。花式足球两年年，我完成了人生第一个三圈动作。此后数年，我持续突破极限，最终掌握了10种三圈和2种三圈半动作，这在中国花式足球运动员中至今仍属最高水平。与此同时，我还完成了数百个“国内首次”的连招组合。</p>
+          </div>
+          <div class="chapter-media">
+            <video controls><source src="photos/Hardest FS tricks in China.mp4" type="video/mp4" /></video>
+          </div>
+        </div>
+
+        <!-- Chapter 3 -->
+        <div class="chapter-row">
+          <div class="chapter-text">
+            <p class="pullquote en">Looking back, freestyle football was probably my first experience with research.</p>
+            <p class="pullquote zh">回头看，花式足球大概是我最早的"科研经历"。</p>
+            <p class="en">Many of the tricks I explored had never been done in China, meaning there was no coach or tutorial to follow. Every training session became a process of observation, hypothesis, testing, failure, and iteration.</p>
+            <p class="zh">我探索的许多动作在国内从无先例，没有教练，没有教程可循。每一次训练都是一个观察、假设、验证、失败、迭代的过程。</p>
+            <p class="en">I was not a particularly outstanding student during the early years of university. A lack of confidence developed during childhood often stopped me from believing that I could truly excel at something. Yet success in freestyle football gradually changed that. Every difficult trick I learned became evidence that I was capable of solving problems independently.</p>
+            <p class="zh">大学前几年，我并不是一个特别出色的学生。童年时期积累的不自信，让我不确定自己是否真的能在某件事上做到优秀。但花式足球的成功逐渐改变了这一切。每一个攻克的难度动作，都成为"我有能力独立解决问题"的有力证明。</p>
+            <p class="en">By the time I graduated from my bachelor's degree, that confidence had started carrying over into academics as well. If I could figure out difficult tricks on my own, perhaps I could succeed in science too. Fortunately, that belief turned out to be correct.</p>
+            <p class="zh">到本科毕业时，这种自信开始渗透进学业。既然我能靠自己摸索出高难动作，或许在科研上也能行。幸运的是，这个判断是对的。</p>
+            <p class="en">Freestyle football remained a major part of my life throughout my bachelor's and master's years. To support my training, I also became serious about physical conditioning. Starting university as a relatively skinny teenager, I gained around fifteen kilograms over the years. At my strongest, I could bench press 115 kg, squat 140 kg, and perform 25 pull-ups at a body weight of 80 kg.</p>
+            <p class="zh">本科和硕士期间，花式足球始终是我生活的重要组成部分。为了支撑训练，我也认真对待体能训练。从进大学时偏瘦，我在几年里增重约十五公斤。巅峰时期，我能卧推115公斤、深蹲140公斤，以80公斤的体重完成25个引体向上。</p>
+          </div>
+          <div class="chapter-media">
+            <img src="photos/bench press.jpg" alt="Bench press" />
+          </div>
+        </div>
+
+        <!-- Chapter 4 -->
+        <div class="chapter-row">
+          <div class="chapter-text">
+            <p class="en">For a long time, everything seemed to be moving in the right direction. Then reality caught up.</p>
+            <p class="zh">很长一段时间里，一切似乎都在朝好的方向发展。然后，现实追上来了。</p>
+            <p class="en">Years of wet-lab research, hours spent sitting in front of computers, repetitive gym exercises, and countless freestyle training sessions gradually resulted in persistent lower back pain. At the same time, although I continued training during the beginning of my PhD, I no longer experienced the rapid progress of the early years.</p>
+            <p class="zh">多年的湿实验室工作、长时间坐在电脑前、重复性的健身训练，加上无数次花式足球练习，让我逐渐出现了持续的腰痛。与此同时，尽管博士初期我还在坚持训练，却再也感受不到早年那种飞速进步的快感。</p>
+            <p class="en">Denmark had the best freestyle football community I had ever seen. Yet for the first time, I no longer felt happy about being a freestyler.</p>
+            <p class="zh">丹麦的花式足球圈子是我见到的最好的。然而，我第一次感到，作为一名花式足球玩家，我不再快乐。</p>
+            <p class="en">Eventually I realized that the problem was not freestyle football itself.</p>
+            <p class="zh">我最终意识到，问题不在于花式足球本身。</p>
+            <p class="pullquote en">I had simply become too adapted to a single lifestyle. The same hobby. The same routines. The same movements.</p>
+            <p class="pullquote zh">我只是对单一的生活方式适应得太久了。同样的爱好，同样的节奏，同样的动作。</p>
+            <p class="en">My body was getting stiffer, and so was my mindset. At some point I told myself: "I need to make a change." My immediate reaction was fear. "But I'm not good at those things." "It's uncomfortable." "You'll adapt. Just be yourself." I started saying yes.</p>
+            <p class="zh">我的身体在僵化，我的思维也在僵化。某个时刻，我告诉自己："我需要改变。"随之而来的是恐惧。"但我不擅长那些东西。""会不舒服的。""你会适应的，做你自己。"我开始说"好"。</p>
+          </div>
+          <div class="chapter-media">
+            <img src="photos/DKFS.jpg" alt="Danish freestyle football community" />
+          </div>
+        </div>
+
+        <!-- Chapter 5 -->
+        <div class="chapter-row">
+          <div class="chapter-text">
+            <p class="en">Not to extraordinary things, but simply to activities that had once made me think, "That looks fun." I started bouldering as a terrible climber. I replaced some freestyle training sessions with mushroom hunting in Danish forests, hiking in the mountains, rowing on lakes, and swimming in the sea without worrying whether my technique looked awkward.</p>
+            <p class="zh">不是为了什么了不起的事，只是对那些曾经让我心动的活动，那些让我想"这看起来好玩"的事情，说"好"。我开始学习抱石，最开始的攀岩姿态极差。我把曾经花在花式足球训练上的时间换成了在森林里采蘑菇、在山里徒步、在湖上划船、在大海里游泳-不担心姿势不好看。</p>
+            <p class="pullquote en">The summer of 2025 turned out to be the happiest summer I had experienced since adolescence.</p>
+            <p class="pullquote zh">2025年的夏天，成了我成年以来最快乐的一个夏天。</p>
+            <p class="en">I shouted into forests and cold seawater to release pressure. I watched sunsets over both the Nordic and Mediterranean coasts. I was there to feel terrified and excited while reaching the top of V3–V4 bouldering routes and standing on the edge of mountains in the Alps. I even found the largest porcini mushroom I had ever seen, whose smell I still remember today.</p>
+            <p class="zh">我在森林里和冰冷的海水里大喊来释放压力。我在北欧和地中海的海岸线上看日落。我在攀岩墙上爬上V3–V4的路线顶端，在阿尔卑斯山的山脊边缘感受那种既恐惧又兴奋的感觉。我还找到了我见过的最大的牛肝菌，香气令人难忘。</p>
+            <p class="en">Something unexpected happened during that period. As my obsession with excelling in a single narrow field gradually eased, my back pain became less overwhelming, and my curiosity returned. I realized how many experiences, skills, and ideas were still waiting to be discovered — not only in hobbies, but also in life and in my career.</p>
+            <p class="zh">那段时间里，一些意想不到的事情发生了。随着对在一个狭窄领域追求卓越的执念慢慢松绑，疼痛减轻了，好奇心回来了。我意识到，还有那么多的体验、技能和想法等待着我去发现，不仅在爱好里，也在生活与事业中。</p>
+          </div>
+          <div class="chapter-media">
+            <div class="two-col">
+              <img src="photos/boulderingv3-v4.jpg" alt="Bouldering V3-V4" />
+              <img src="photos/hike.jpg" alt="Hiking in the Alps" />
+            </div>
+            <div class="two-col">
+              <img src="photos/sea.jpg" alt="Swimming in the sea" />
+              <img src="photos/mushroom.jpg" alt="Porcini mushroom" />
+            </div>
+            <img src="photos/herb.jpg" alt="Foraging in Danish forests" />
+          </div>
+        </div>
+
+        <!-- Chapter 6 -->
+        <div class="chapter-row">
+          <div class="chapter-text">
+            <p class="en">The exploration continues today. I have been lead climbing in China, training for a half-marathon, learning proper swimming technique, and attempting parkour and backflips. And unexpectedly, I also picked up juggling and, with a bit of spare-time practice, became a beginner juggler.</p>
+            <p class="zh">探索仍在继续。我在国内尝试了难度攀岩，在训练半程马拉松，在尝试学习游泳技术，计划练习跑酷和后空翻。意想不到地，我还学起了抛接球杂耍，正在成为一个入门级的杂技玩家。</p>
+            <p class="en">Last year, while travelling in Switzerland, I met an elderly gentleman cycling along Lake Thun. During our conversation, he told me: "I'm sixty now, but I still feel energized. Every decade feels like a brand new journey. My parents are in their eighties, and they still feel the same way." That sentence stayed with me.</p>
+            <p class="zh">去年，在瑞士旅行时，我在图恩湖边遇到了一位骑行的先生。聊天中，他告诉我："我今年六十岁，但依然精力充沛。人生的每个十年对我来说都是全新的旅程。我的父母已经八十多岁了，他们也依然有同样的感受。"这句话一直留在我心里。</p>
+            <p class="pullquote en">Looking back, I thought this story was about learning to do tricks. It wasn't. It was about learning how to continuously reinvent myself.</p>
+            <p class="pullquote zh">回头看，我曾以为我的爱好之路是关于如何学更多的奇技淫巧，但实际上，我学会的是如何不断地从方方面面对自己进行更新迭代。</p>
+            <p class="en">A football at seventeen led me to championships, confidence, ambition, research, and later on to forests, mountains, oceans, open minds, active living, and friendships across the world. And the journey is only just beginning.</p>
+            <p class="zh">十七岁的一颗足球，带我走向了冠军、自信、野心、科研，后来又带我走向了森林、山川、海洋、开阔的心智、健康的生活方式，以及来自世界各地的友谊。而这段旅程，才刚刚开始。</p>
+          </div>
+          <div class="chapter-media">
+            <video controls><source src="photos/Juggling vid.mp4" type="video/mp4" /></video>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CV -->
+    <div class="page" id="page-cv">
+      <div class="section-label"><span class="en">Curriculum Vitae</span><span class="zh">个人简历</span></div>
+      <div class="cv-photo-wrap">
+        <img src="CV photo.jpg" alt="Yuesheng Zhang" class="cv-photo" />
+      </div>
+      <a class="cv-download" href="张岳升个人简历.pdf" download>
+        <span class="en">↓ Download CV (PDF)</span>
+        <span class="zh">↓ 下载简历（PDF）</span>
+      </a>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="page" id="page-contact">
+      <div class="section-label"><span class="en">Contact</span><span class="zh">联系方式</span></div>
+      <p class="contact-intro">
+        <span class="en">I am always open to conversations about collaborative research, industry opportunities, or simply exchanging ideas about synthetic biology and the future of biomanufacturing.</span>
+        <span class="zh">我始终欢迎关于科研合作、产业机会的交流，或仅仅是探讨合成生物学与生物制造未来的对话。</span>
+      </p>
+      <div class="contact-list">
+        <div class="contact-row">
+          <span class="contact-label"><span class="en">Email</span><span class="zh">邮箱</span></span>
+          <span class="contact-value">
+            <a href="mailto:yueshzhang@gmail.com">yueshzhang@gmail.com</a><br>
+            <a href="mailto:zhayu@dtu.dk">zhayu@dtu.dk</a>
+          </span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label"><span class="en">Phone</span><span class="zh">电话</span></span>
+          <span class="contact-value">
+            +45 71380620 (<span class="en">Denmark</span><span class="zh">丹麦</span>)<br>
+            +86 18861813783 (<span class="en">China</span><span class="zh">中国</span>)
+          </span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label"><span class="en">Address</span><span class="zh">地址</span></span>
+          <span class="contact-value">
+            Kollegiebakken 15a, 6<br>
+            2800 Kgs. Lyngby, Denmark
+          </span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">WeChat</span>
+          <span class="contact-value">IndBio (<span class="en">public account</span><span class="zh">公众号</span>)</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  function show(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.getElementById('nav-' + id).classList.add('active');
+    window.scrollTo(0, 0);
+    return false;
+  }
+
+  function toggleLang() {
+    const isZh = document.body.classList.toggle('lang-zh');
+    document.getElementById('lang-btn').textContent = isZh ? 'EN' : '中文';
+    localStorage.setItem('lang', isZh ? 'zh' : 'en');
+  }
+
+  // Restore saved language preference
+  if (localStorage.getItem('lang') === 'zh') {
+    document.body.classList.add('lang-zh');
+    document.getElementById('lang-btn').textContent = 'EN';
+  }
+
+  document.querySelectorAll('nav a').forEach(a => {
+    a.addEventListener('click', e => e.preventDefault());
+  });
+</script>
+</body>
+</html>
