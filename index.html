@@ -132,18 +132,40 @@
     .news-strip h2 {
       font-family: 'Space Grotesk', sans-serif;
       font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 1rem;
+      color: var(--muted); margin-bottom: .4rem;
     }
     .news-item {
-      display: flex; gap: 1.5rem; padding: .7rem 0;
-      border-bottom: 1px solid var(--border); align-items: baseline;
+      display: grid;
+      grid-template-columns: 6.7rem minmax(0, 1fr);
+      gap: .35rem 1.25rem;
+      padding: 1.05rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
     }
     .news-date {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: .78rem; color: var(--muted); white-space: nowrap; min-width: 70px;
+      font-size: .78rem; color: var(--muted); white-space: nowrap;
+      padding-top: .28rem;
     }
-    .news-text { font-size: 1rem; line-height: 1.5; }
+    .news-text { display: flow-root; font-size: 1rem; line-height: 1.6; }
     .news-text a { color: var(--teal); text-decoration: none; border-bottom: 1px solid var(--teal); }
+    .news-thumb {
+      float: right;
+      width: 168px;
+      margin: .1rem 0 .45rem 1.15rem;
+      border: 1px solid var(--border);
+      background: #fff;
+      line-height: 0;
+    }
+    .news-thumb img { width: 100%; height: auto; display: block; }
+    .collab-note a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid var(--teal);
+    }
+    .pub-extra { font-size: .9rem; line-height: 1.55; margin-top: .4rem; color: #333; }
+    .cv-prose { font-size: 1.05rem; line-height: 1.75; max-width: 40rem; margin-bottom: 1.6rem; }
+    .cv-actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: .4rem; }
 
     /* ── SECTION LABEL ── */
     .section-label {
@@ -277,7 +299,11 @@
       .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem; }
       nav { flex-direction: row; flex-wrap: wrap; gap: .4rem 1rem; margin-top: 1rem; }
       main { padding: 2rem 1.5rem; }
-      .chapter-row { grid-template-columns: 1fr; }
+      .chapter-row, .project-row { grid-template-columns: 1fr; }
+      .project-row { gap: 1.1rem; }
+      .news-item { grid-template-columns: 1fr; gap: .3rem; }
+      .news-date { padding-top: 0; }
+      .news-thumb { float: none; width: min(100%, 300px); margin: .15rem 0 .75rem; }
     }
   </style>
 </head>
@@ -336,13 +362,122 @@
         <p class="en">I am currently a PhD researcher at the Novo Nordisk Foundation Biotechnology Research Institute for the Green Transition (BRIGHT, previously DTU Biosustain), supervised by Prof. Irina Borodina. My current works covers both fundamental and application research in yeast metabolic engineering, and involves both academic publication and direct paths toward commercial application, through collaborations with spin-out companies <span class="em">Typo Foods</span> and <span class="em">Biocolor.</span></p>
         <p class="zh">目前，我是丹麦技术大学诺和诺德基金会绿色转型生物技术研究院（前DTU Biosustain）的博士研究生，导师为Irina Borodina教授。我当前的研究覆盖酵母代谢工程的基础科研与应用研究，不仅聚焦于学术发表，也积极推动成果向商业应用转化，通过课题组与初创公司<span class="em">Typo Foods</span>和<span class="em">Biocolor</span>的合作实现技术商业化。</p>
       </div>
-     
+
+      <div class="news-strip">
+        <h2><span class="en">Latest updates</span><span class="zh">最新动态</span></h2>
+
+        <div class="news-item">
+          <div class="news-date">2026-10-23</div>
+          <div class="news-text">
+            <span class="en"><a href="https://github.com/yueshz/SNP_Identifier" target="_blank">SNP_Identifier</a> is on GitHub. It aligns whole-genome assemblies of evolved or engineered strains to a control with minimap2, calls and annotates SNVs and indels, and writes a PASS matrix across strains. Using this tool, I discovered mutations that improve yeast's ability to transport mevalonate.</span>
+            <span class="zh"><a href="https://github.com/yueshz/SNP_Identifier" target="_blank">SNP_Identifier</a> 已发布在 GitHub。该工具以 minimap2 将进化或工程菌株的全基因组组装比对至对照，检测并注释 SNV 与 indel，并输出跨菌株的 PASS 突变矩阵。借助这一工具，我发现了能够提升酵母转运甲羟戊酸能力的突变。</span>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">2026-10-13</div>
+          <div class="news-text">
+            <a class="news-thumb" href="https://github.com/yueshz/PULpred" target="_blank">
+              <img src="photos/pulpred-graphic.jpg" alt="PULpred: CGC substrate prediction and enzyme discovery" />
+            </a>
+            <span class="en"><a href="https://github.com/yueshz/PULpred" target="_blank">PULpred</a>, a hobby project that predicts which substrate a CAZyme gene cluster acts on. ESM-2 protein embeddings and an SVM trained on dbCAN-seq, with glycosaminoglycans as the case study. Structure-based screening found lyase-like candidates at low sequence identity, including a DUF2264 protein from <em>Hafnia paralvei</em> that matches GAGase folds at about 10% identity. README results: GAG AUC 0.9942 / F1 0.829; alginate AUC 0.9904 / F1 0.930. <a href="https://www.linkedin.com/posts/yuesheng-zhang-02a213306_ai-ai4bio-industrialbiotechnology-activity-7515842189231505408-gDz-" target="_blank">LinkedIn</a></span>
+            <span class="zh"><a href="https://github.com/yueshz/PULpred" target="_blank">PULpred</a> 是一个业余项目，用于预测 CAZyme 基因簇所作用的底物。以 ESM-2 蛋白嵌入结合在 dbCAN-seq 上训练的支持向量机，并以糖胺聚糖为案例。基于结构的筛选找到了序列一致性很低的裂解酶样候选，例如来自 <em>Hafnia paralvei</em> 的一个 DUF2264 蛋白，与 GAGase 折叠的序列一致性约 10%。README 中的结果：糖胺聚糖 AUC 0.9942 / F1 0.829；海藻酸盐 AUC 0.9904 / F1 0.930。<a href="https://www.linkedin.com/posts/yuesheng-zhang-02a213306_ai-ai4bio-industrialbiotechnology-activity-7515842189231505408-gDz-" target="_blank">LinkedIn</a></span>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">2026-10</div>
+          <div class="news-text">
+            <a class="news-thumb" href="https://doi.org/10.1016/j.tibtech.2026.03.026" target="_blank">
+              <img src="photos/tibtech-2026-llm-graphical-abstract.jpg" alt="Graphical abstract of the 2026 Trends in Biotechnology LLM review" />
+            </a>
+            <span class="en">Our review on large language models for metabolic engineering design is out in print: <a href="https://doi.org/10.1016/j.tibtech.2026.03.026" target="_blank"><em>Trends in Biotechnology</em> 44(10):3104–3125</a>, doi 10.1016/j.tibtech.2026.03.026.</span>
+            <span class="zh">关于大语言模型辅助代谢工程设计的综述已正式刊出：<a href="https://doi.org/10.1016/j.tibtech.2026.03.026" target="_blank"><em>Trends in Biotechnology</em> 44(10):3104–3125</a>，doi 10.1016/j.tibtech.2026.03.026。</span>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">2026-09-16</div>
+          <div class="news-text">
+            <span class="en">Started a three-month internship at Singer Instruments.</span>
+            <span class="zh">开始在 Singer Instruments 进行为期三个月的实习。</span>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">2026-08-06</div>
+          <div class="news-text">
+            <a class="news-thumb" href="https://www.linkedin.com/posts/yuesheng-zhang-02a213306_tibtech-august-2026-activity-7491137512879570944-qd5J" target="_blank">
+              <img src="photos/tibtech-2026-08-cover.jpg" alt="Trends in Biotechnology August 2026 cover, Gateways to efficient cell factories" />
+            </a>
+            <span class="en">Contributed the cover artwork for <em>Trends in Biotechnology</em>, August 2026 (Vol. 44, No. 8), “Gateways to efficient cell factories.” Our transporter review appears in this issue, 44(8):2248–2264. <a href="https://www.linkedin.com/posts/yuesheng-zhang-02a213306_tibtech-august-2026-activity-7491137512879570944-qd5J" target="_blank">LinkedIn</a></span>
+            <span class="zh">为 <em>Trends in Biotechnology</em> 2026年8月刊（第44卷第8期）绘制封面，主题为 “Gateways to efficient cell factories”。我们的转运蛋白综述刊于同期，44(8):2248–2264。<a href="https://www.linkedin.com/posts/yuesheng-zhang-02a213306_tibtech-august-2026-activity-7491137512879570944-qd5J" target="_blank">LinkedIn</a></span>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">2026-08-01</div>
+          <div class="news-text">
+            <a class="news-thumb" href="https://www.biorxiv.org/content/10.64898/2026.07.27.740914v1" target="_blank">
+              <img src="photos/biorxiv-2026-slc-fig1.jpg" alt="Figure 1 of the SLC metabolomics preprint: serum incubation and untargeted LC-MS/MS workflow" />
+            </a>
+            <span class="en">New preprint, <a href="https://www.biorxiv.org/content/10.64898/2026.07.27.740914v1" target="_blank"><em>Unlocking substrate specificities of human solute carrier proteins using untargeted metabolomics</em></a>, posted on bioRxiv on 28 July 2026. <a href="https://www.linkedin.com/posts/yuesheng-zhang-02a213306_unlocking-substrate-specificities-of-human-activity-7489335413527101440-17rv" target="_blank">LinkedIn</a></span>
+            <span class="zh">新预印本 <a href="https://www.biorxiv.org/content/10.64898/2026.07.27.740914v1" target="_blank"><em>Unlocking substrate specificities of human solute carrier proteins using untargeted metabolomics</em></a>，于2026年7月28日发布在 bioRxiv。<a href="https://www.linkedin.com/posts/yuesheng-zhang-02a213306_unlocking-substrate-specificities-of-human-activity-7489335413527101440-17rv" target="_blank">LinkedIn</a></span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- RESEARCH -->
     <div class="page" id="page-research">
       <div class="section-label"><span class="en">Research</span><span class="zh">科研项目</span></div>
       <div class="project-list">
+
+        <!-- SNP_Identifier -->
+        <div class="project-row no-img">
+          <div class="project-text">
+            <div class="project-period">2026</div>
+            <div class="project-title">
+              <span class="en">SNP_Identifier — variants across evolved and engineered strains</span>
+              <span class="zh">SNP_Identifier — 进化与工程菌株的变异检测</span>
+            </div>
+            <div class="project-body">
+              <p class="en">Aligns whole-genome assemblies of evolved or engineered strains to a control with minimap2, calls and annotates SNVs and indels, and writes a PASS matrix across strains.</p>
+              <p class="zh">以 minimap2 将进化或工程菌株的全基因组组装比对至对照，检测并注释 SNV 与 indel，并输出跨菌株的 PASS 突变矩阵。</p>
+              <p class="en">Using this tool, I discovered mutations that improve yeast's ability to transport mevalonate.</p>
+              <p class="zh">借助这一工具，我发现了能够提升酵母转运甲羟戊酸能力的突变。</p>
+            </div>
+            <div class="collab-note">→ <a href="https://github.com/yueshz/SNP_Identifier" target="_blank">GitHub</a></div>
+            <span class="project-tag">minimap2</span>
+            <span class="project-tag">Variant calling</span>
+            <span class="project-tag">Yeast</span>
+          </div>
+        </div>
+
+        <!-- PULpred -->
+        <div class="project-row">
+          <div class="project-text">
+            <div class="project-period">2026</div>
+            <div class="project-title">
+              <span class="en">PULpred — substrates of CAZyme gene clusters</span>
+              <span class="zh">PULpred — CAZyme 基因簇的底物预测</span>
+            </div>
+            <div class="project-body">
+              <p class="en">A hobby project that predicts which substrate a CAZyme gene cluster acts on. ESM-2 protein embeddings and a support vector machine, trained on dbCAN-seq, are applied with glycosaminoglycans as a case study.</p>
+              <p class="zh">一项业余项目，用于预测 CAZyme 基因簇所作用的底物。以 ESM-2 蛋白嵌入结合支持向量机，在 dbCAN-seq 上训练，并以糖胺聚糖作为案例。</p>
+              <p class="en">Structure-based screening then finds lyase-like candidates with low sequence identity — for example, a DUF2264 protein from <em>Hafnia paralvei</em> that matches GAGase folds at about 10% identity. README results: GAG AUC 0.9942 / F1 0.829; alginate AUC 0.9904 / F1 0.930.</p>
+              <p class="zh">随后通过基于结构的筛选，寻找序列一致性很低的裂解酶样候选。例如，来自 <em>Hafnia paralvei</em> 的一个 DUF2264 蛋白与 GAGase 折叠的序列一致性约 10%。README 中的结果：糖胺聚糖 AUC 0.9942 / F1 0.829；海藻酸盐 AUC 0.9904 / F1 0.930。</p>
+            </div>
+            <div class="collab-note">→ <a href="https://github.com/yueshz/PULpred" target="_blank">GitHub</a> · <a href="https://www.linkedin.com/posts/yuesheng-zhang-02a213306_ai-ai4bio-industrialbiotechnology-activity-7515842189231505408-gDz-" target="_blank">LinkedIn</a></div>
+            <span class="project-tag">CAZyme</span>
+            <span class="project-tag">ESM-2</span>
+            <span class="project-tag">Enzyme discovery</span>
+          </div>
+          <div class="project-img">
+            <img src="photos/pulpred-graphic.jpg" alt="PULpred graphic: CGC substrate prediction and enzyme discovery" />
+          </div>
+        </div>
 
         <!-- Project 1 -->
         <div class="project-row">
@@ -401,8 +536,8 @@
             <div class="project-body">
               <p class="en">Established a <em>Xenopus</em> oocyte-based platform for characterizing transporter substrate ranges using untargeted metabolomics. Combining adaptive evolution and reverse engineering to expand yeast transport capabilities toward novel substrates.</p>
               <p class="zh">建立基于非洲爪蟾卵母细胞与非靶向代谢组学的转运蛋白底物广谱性表征平台。结合适应性进化与反向工程，拓展酵母对新型底物的转运能力。</p>
-              <p class="en">A review was published in <em>Trends in Biotechnology</em>; three manuscripts in submission.</p>
-              <p class="zh">相关综述已发表于<em>Trends in Biotechnology</em>，另有三篇论文在投。</p>
+              <p class="en">A review was published in <em>Trends in Biotechnology</em> (44(8):2248–2264, August 2026). The untargeted metabolomics study of human solute carriers is now a bioRxiv preprint.</p>
+              <p class="zh">相关综述已发表于<em>Trends in Biotechnology</em>（44(8):2248–2264，2026年8月）。人类溶质载体蛋白的非靶向代谢组学研究现已作为 bioRxiv 预印本发布。</p>
             </div>
             <span class="project-tag">Membrane transporters</span><span class="project-tag">Xenopus oocytes</span><span class="project-tag">Metabolomics</span>
           </div>
@@ -482,8 +617,14 @@
         <div class="pub-entry">
           <div class="pub-title-text"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0167779926001356" target="_blank">Leveraging large language models for metabolic engineering design</a></div>
           <div class="pub-authors">Xiongwen Li, Zhetao Guo, Yi Li, Zhu Liang, Ziyi Liu, Ke Wu, Jiahao Luo, <strong>Yuesheng Zhang</strong>, Lizheng Liu, Manda Sun, Yuanyuan Huang, Yu Chen, Tao Yu, Jens Nielsen, Hongting Tang, Feiran Li</div>
-          <div class="pub-venue">Trends in Biotechnology</div>
-          <div class="pub-meta">JCR Q1 · Impact Factor 14.9</div>
+          <div class="pub-venue">Trends in Biotechnology · 44(10):3104–3125</div>
+          <div class="pub-meta">JCR Q1 · Impact Factor 14.9 · doi: 10.1016/j.tibtech.2026.03.026</div>
+        </div>
+        <div class="pub-entry">
+          <div class="pub-title-text"><a href="https://www.biorxiv.org/content/10.64898/2026.07.27.740914v1" target="_blank">Unlocking substrate specificities of human solute carrier proteins using untargeted metabolomics</a></div>
+          <div class="pub-authors"><strong>Yuesheng Zhang</strong>, Lyubomir D. Stanchev, Felicia C. Schulz, Daniela Rago, Carlos G. Acevedo-Rocha, Alberto Santos Delgado, Douglas B. Kell, Irina Borodina</div>
+          <div class="pub-venue">bioRxiv</div>
+          <div class="pub-meta">Preprint · 2026 · doi: 10.64898/2026.07.27.740914</div>
         </div>
       </div>
 
@@ -492,8 +633,9 @@
         <div class="pub-entry">
           <div class="pub-title-text"><a href="https://www.cell.com/trends/biotechnology/fulltext/S0167-7799(25)00493-7" target="_blank">Engineering and characterization of small-molecule transporters for cell factories</a></div>
           <div class="pub-authors"><strong>Yuesheng Zhang</strong>, Douglas B. Kell, Irina Borodina</div>
-          <div class="pub-venue">Trends in Biotechnology</div>
-          <div class="pub-meta">JCR Q1 · Impact Factor 14.9 · doi: 10.1016/j.tibtech.2025.04.937</div>
+          <div class="pub-venue">Trends in Biotechnology · 44(8):2248–2264</div>
+          <div class="pub-meta">JCR Q1 · Impact Factor 14.9 · doi: 10.1016/j.tibtech.2025.11.019 · August 2026</div>
+          <div class="pub-extra"><span class="en">Featured with the cover artwork of this issue.</span><span class="zh">与该期封面图一同呈现。</span></div>
         </div>
       </div>
 
@@ -738,17 +880,21 @@
     <!-- CV -->
     <div class="page" id="page-cv">
       <div class="section-label"><span class="en">Curriculum Vitae</span><span class="zh">个人简历</span></div>
+      <p class="cv-prose en">From 16 September 2026, a three-month internship at Singer Instruments.</p>
+      <p class="cv-prose zh">自2026年9月16日起，在 Singer Instruments 进行为期三个月的实习。</p>
       <div class="cv-photo-wrap">
         <img src="CV photo.jpg" alt="Yuesheng Zhang" class="cv-photo" />
       </div>
-      <a class="cv-download" href="Yuesheng Zhang, personal CV English.pdf" download>
-        <span class="en">↓ Download CV — English (PDF)</span>
-        <span class="zh">↓ 下载简历 — 英文版（PDF）</span>
-      </a>
-      <a class="cv-download" href="张岳升个人简历.pdf" download style="margin-left:.8rem;">
-        <span class="en">↓ Download CV — Chinese (PDF)</span>
-        <span class="zh">↓ 下载简历 — 中文版（PDF）</span>
-      </a>
+      <div class="cv-actions">
+        <a class="cv-download" href="Yuesheng Zhang, personal CV English.pdf" download>
+          <span class="en">↓ Download CV — English (PDF)</span>
+          <span class="zh">↓ 下载简历 — 英文版（PDF）</span>
+        </a>
+        <a class="cv-download" href="张岳升个人简历.pdf" download>
+          <span class="en">↓ Download CV — Chinese (PDF)</span>
+          <span class="zh">↓ 下载简历 — 中文版（PDF）</span>
+        </a>
+      </div>
     </div>
 
     <!-- CONTACT -->
